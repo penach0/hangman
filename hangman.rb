@@ -3,8 +3,8 @@ module Dictionary
   dictionary = File.open('google-10000-english-no-swears.txt', 'r')
   WORDS = dictionary.read.split("\n")
 
-  def pick_word(array)
-    array.select { |word| word.length.between?(5, 12) }.sample
+  def pick_word
+    WORDS.select { |word| word.length.between?(5, 12) }.sample
   end
 end
 
@@ -14,9 +14,14 @@ class SecretWord
   attr_reader :secret_word
 
   def initialize
-    @secret_word = pick_word(WORDS)
+    @secret_word = pick_word
+  end
+
+  def blank_lines
+    '_ ' * secret_word.length
   end
 end
 
 new_word = SecretWord.new
 puts new_word.secret_word
+puts new_word.blank_lines
