@@ -17,9 +17,7 @@ class Game
   def play
     while wrong_guesses.size < MAX_WRONG_TRIES
       turn
-      display_wrong_guesses
-      display_game_result(game_result)
-      secret_word.display_word_state
+      display_all
       break if game_result == 'won'
     end
   end
@@ -28,6 +26,12 @@ class Game
     guess = Guess.new.guess
     secret_word.update_word_state(secret_word.check_guess(guess), guess)
     add_wrong_guesses(guess)
+  end
+
+  def display_all
+    display_wrong_guesses
+    display_game_result(game_result)
+    secret_word.display_word_state
   end
 
   def add_wrong_guesses(guess)
@@ -51,7 +55,6 @@ class Game
     case game_result
     when 'lost'
       show_secret_word
-      secret_word.display_word_state
       puts 'No more tries, you lost the game...'
     when 'won'
       puts 'Congratulations! You found the word and won the game!!'
