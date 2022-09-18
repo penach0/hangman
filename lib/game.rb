@@ -16,6 +16,7 @@ class Game
 
   def play
     while wrong_guesses.size < MAX_WRONG_TRIES
+      save_game? if Guess.all_guesses.size > 0
       turn
       display_all
       break if game_result == 'won'
@@ -81,5 +82,17 @@ class Game
   def new_game
     Guess.reset_guesses
     Game.new.play
+  end
+
+  def save_game?
+    puts 'Do you want to save? (Y/N)'
+    answer = ''
+    loop do
+      answer = gets.chomp
+      break if %w[y n].include?(answer.downcase)
+
+      puts 'Not a valid option'
+    end
+    answer == 'y'
   end
 end
