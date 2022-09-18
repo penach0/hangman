@@ -3,7 +3,8 @@ require_relative 'dictionary'
 # Creates instance of the secret word
 class SecretWord
   include Dictionary
-  attr_reader :secret_word, :letters, :blank_lines
+  attr_reader :secret_word, :letters 
+  attr_accessor :blank_lines
 
   def initialize
     @secret_word = pick_word
@@ -12,7 +13,7 @@ class SecretWord
   end
 
   def display_word_state
-    blank_lines.join(' ')
+    puts blank_lines.join(' ')
   end
 
   def update_word_state(correct_positions, guess)

@@ -3,7 +3,7 @@ class Guess
   attr_reader :guess
 
   def initialize
-    @guess = player_input.downcase
+    @guess = player_input
   end
 
   def player_input
@@ -14,6 +14,6 @@ class Guess
 
       puts "That's not a letter! Please try again:"
     end
-    letter
+    letter.downcase
   end
 end
