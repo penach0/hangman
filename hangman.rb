@@ -11,15 +11,16 @@ end
 # Creates instance of the secret word
 class SecretWord
   include Dictionary
-  attr_reader :secret_word, :letters
+  attr_reader :secret_word, :letters, :blank_lines
 
   def initialize
     @secret_word = pick_word
     @letters = secret_word.split('')
+    @blank_lines = Array.new(secret_word.length, '_')
   end
 
-  def blank_lines
-    '_ ' * secret_word.length
+  def display_word_state
+    blank_lines.join(' ')
   end
 
   def check_guess(guess)
@@ -33,5 +34,5 @@ end
 
 new_word = SecretWord.new
 puts new_word.secret_word
-puts new_word.blank_lines
+puts new_word.display_word_state
 new_word.check_guess('a')
