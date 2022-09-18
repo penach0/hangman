@@ -16,6 +16,7 @@ class Game
   end
 
   def play
+    load_game?
     while wrong_guesses.size < MAX_WRONG_TRIES
       if Guess.all_guesses.size > 0
         serialize_game if save_game?
@@ -103,5 +104,17 @@ class Game
     new_file = File.open('../saves/test.yaml', 'w')
     YAML.dump(self, new_file)
     new_file.close
+  end
+
+  def load_game?
+    puts 'Do you want to load a game? (Y/N)'
+    answer = ''
+    loop do
+      answer = gets.chomp
+      break if %w[y n].include?(answer.downcase)
+
+      puts 'Not a valid option'
+    end
+    answer == 'y'
   end
 end
