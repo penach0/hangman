@@ -1,5 +1,6 @@
 require_relative 'secret_word'
 require_relative 'guess'
+require 'yaml'
 
 # Contains logic of the gameplay
 class Game
@@ -16,7 +17,9 @@ class Game
 
   def play
     while wrong_guesses.size < MAX_WRONG_TRIES
-      save_game? if Guess.all_guesses.size > 0
+      if Guess.all_guesses.size > 0
+        serialize_game if save_game?
+      end
       turn
       display_all
       break if game_result == 'won'
@@ -94,5 +97,11 @@ class Game
       puts 'Not a valid option'
     end
     answer == 'y'
+  end
+
+  def serialize_game
+    new_file = File.open('../saves/test.yaml', 'w')
+    YAML.dump(self, new_file)
+    new_file.close
   end
 end
