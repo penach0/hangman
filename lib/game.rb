@@ -16,12 +16,16 @@ class Game
   def play
     while wrong_guesses.size < MAX_WRONG_TRIES
       secret_word.display_word_state
-      guess = Guess.new.guess
-      secret_word.update_word_state(secret_word.check_guess(guess), guess)
-      add_wrong_guesses(guess)
+      turn
       display_wrong_guesses
       game_result
     end
+  end
+
+  def turn
+    guess = Guess.new.guess
+    secret_word.update_word_state(secret_word.check_guess(guess), guess)
+    add_wrong_guesses(guess)
   end
 
   def add_wrong_guesses(guess)
