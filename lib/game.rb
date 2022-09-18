@@ -20,6 +20,7 @@ class Game
       display_all
       break if game_result == 'won'
     end
+    new_game if play_again?
   end
 
   def turn
@@ -63,5 +64,22 @@ class Game
 
   def show_secret_word
     secret_word.blank_lines = secret_word.letters
+  end
+
+  def play_again?
+    puts 'Want to play again? (Y/N)'
+    answer = ''
+    loop do
+      answer = gets.chomp
+      break if %w[y n].include?(answer.downcase)
+
+      puts 'Not a valid option'
+    end
+    answer == 'y'
+  end
+
+  def new_game
+    Guess.reset_guesses
+    Game.new.play
   end
 end

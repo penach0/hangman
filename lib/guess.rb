@@ -4,6 +4,10 @@ class Guess
 
   @@all_guesses = []
 
+  def self.reset_guesses
+    @@all_guesses = []
+  end
+
   def initialize
     @guess = player_input
     @@all_guesses << guess
