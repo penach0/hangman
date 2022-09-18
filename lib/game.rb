@@ -10,15 +10,17 @@ class Game
   def initialize
     @secret_word = SecretWord.new
     @wrong_guesses = []
+    secret_word.display_word_state
     puts secret_word.secret_word
   end
 
   def play
     while wrong_guesses.size < MAX_WRONG_TRIES
-      secret_word.display_word_state
       turn
       display_wrong_guesses
-      game_result
+      display_game_result(game_result)
+      secret_word.display_word_state
+      break if game_result == 'won'
     end
   end
 
@@ -39,10 +41,19 @@ class Game
 
   def game_result
     if wrong_guesses.size == MAX_WRONG_TRIES
+      'lost'
+    elsif secret_word.letters == secret_word.blank_lines
+      'won'
+    end
+  end
+
+  def display_game_result(game_result)
+    case game_result
+    when 'lost'
       show_secret_word
       secret_word.display_word_state
       puts 'No more tries, you lost the game...'
-    elsif secret_word.letters == secret_word.blank_lines
+    when 'won'
       puts 'Congratulations! You found the word and won the game!!'
     end
   end
