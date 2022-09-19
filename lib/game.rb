@@ -10,15 +10,24 @@ class Game
 
   def initialize(secret_word = nil, wrong_guesses = [])
     @secret_word = secret_word || SecretWord.new
+    p @secret_word
     @wrong_guesses = wrong_guesses || []
+    p @wrong_guesses
+  end
+
+  def self.load(saved_game)
+    new(
+      saved_game.secret_word,
+      saved_game.wrong_guesses
+    )
   end
 
   def play
-    deserialize if load_game?
+    Game.load(deserialize) if load_game?
     secret_word.display_word_state
     while wrong_guesses.size < MAX_WRONG_TRIES
       if Guess.all_guesses.size > 0
-        serialize_game if save_game?
+        serialize if save_game?
       end
       turn
       display_all
@@ -121,7 +130,7 @@ class Game
     file = File.open('../saves/test.yaml', 'r')
     saved_game = YAML.safe_load(file, permitted_classes: [Game, SecretWord])
     file.close
-    puts saved_game
+    p saved_game
     saved_game
   end
 end
