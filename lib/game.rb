@@ -10,12 +10,14 @@ class Game
 
   def initialize(secret_word = nil, wrong_guesses = [])
     @secret_word = secret_word || SecretWord.new
-    p @secret_word
     @wrong_guesses = wrong_guesses || []
-    p @wrong_guesses
   end
 
-  def self.load(saved_game)
+  def self.load
+    file = File.open('../saves/test.yaml', 'r')
+    saved_game = YAML.safe_load(file, permitted_classes: [Game, SecretWord])
+    file.close
+
     new(
       saved_game.secret_word,
       saved_game.wrong_guesses
@@ -23,11 +25,13 @@ class Game
   end
 
   def play
-    Game.load(deserialize) if load_game?
-    secret_word.display_word_state
+    display_all
     while wrong_guesses.size < MAX_WRONG_TRIES
-      if Guess.all_guesses.size > 0
-        serialize if save_game?
+      unless Guess.all_guesses.empty?
+        if save_game?
+          serialize
+          return
+        end
       end
       turn
       display_all
@@ -43,9 +47,9 @@ class Game
   end
 
   def display_all
+    secret_word.display_word_state
     display_wrong_guesses
     display_game_result(game_result)
-    secret_word.display_word_state
   end
 
   def add_wrong_guesses(guess)
@@ -112,25 +116,5 @@ class Game
     file = File.open('../saves/test.yaml', 'w')
     YAML.dump(self, file)
     file.close
-  end
-
-  def load_game?
-    puts 'Do you want to load a game? (Y/N)'
-    answer = ''
-    loop do
-      answer = gets.chomp
-      break if %w[y n].include?(answer.downcase)
-
-      puts 'Not a valid option'
-    end
-    answer == 'y'
-  end
-
-  def deserialize
-    file = File.open('../saves/test.yaml', 'r')
-    saved_game = YAML.safe_load(file, permitted_classes: [Game, SecretWord])
-    file.close
-    p saved_game
-    saved_game
   end
 end
