@@ -8,15 +8,14 @@ class Game
 
   MAX_WRONG_TRIES = 8
 
-  def initialize
-    @secret_word = SecretWord.new
-    @wrong_guesses = []
-    secret_word.display_word_state
-    puts secret_word.secret_word
+  def initialize(secret_word = nil, wrong_guesses = [])
+    @secret_word = secret_word || SecretWord.new
+    @wrong_guesses = wrong_guesses || []
   end
 
   def play
     deserialize if load_game?
+    secret_word.display_word_state
     while wrong_guesses.size < MAX_WRONG_TRIES
       if Guess.all_guesses.size > 0
         serialize_game if save_game?
