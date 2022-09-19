@@ -16,7 +16,7 @@ class Game
   end
 
   def play
-    load_game?
+    deserialize if load_game?
     while wrong_guesses.size < MAX_WRONG_TRIES
       if Guess.all_guesses.size > 0
         serialize_game if save_game?
@@ -100,10 +100,10 @@ class Game
     answer == 'y'
   end
 
-  def serialize_game
-    new_file = File.open('../saves/test.yaml', 'w')
-    YAML.dump(self, new_file)
-    new_file.close
+  def serialize
+    file = File.open('../saves/test.yaml', 'w')
+    YAML.dump(self, file)
+    file.close
   end
 
   def load_game?
@@ -116,5 +116,13 @@ class Game
       puts 'Not a valid option'
     end
     answer == 'y'
+  end
+
+  def deserialize
+    file = File.open('../saves/test.yaml', 'r')
+    saved_game = YAML.safe_load(file, permitted_classes: [Game, SecretWord])
+    file.close
+    puts saved_game
+    saved_game
   end
 end
