@@ -71,7 +71,7 @@ class Game
   end
 
   def serialize
-    file = File.open('../saves/test.yaml', 'w')
+    file = File.open("../saves/#{ask_save_name}.yaml", 'w')
     YAML.dump(self, file)
     file.close
   end
