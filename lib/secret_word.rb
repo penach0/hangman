@@ -12,11 +12,6 @@ class SecretWord
     @blank_lines = Array.new(secret_word.length, '_')
   end
 
-  def display_word_state
-    puts blank_lines.join(' ')
-    puts
-  end
-
   def update_word_state(correct_positions, guess)
     blank_lines.each_index do |index|
       blank_lines[index] = guess if correct_positions.include?(index)

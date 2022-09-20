@@ -49,9 +49,9 @@ class Game
   end
 
   def display_all
-    secret_word.display_word_state
+    display_game_result(game_result, secret_word)
+    display_word_state(secret_word.blank_lines)
     display_wrong_guesses(wrong_guesses, MAX_WRONG_TRIES)
-    display_game_result(game_result)
   end
 
   def add_wrong_guesses(guess)
@@ -64,20 +64,6 @@ class Game
     elsif secret_word.letters == secret_word.blank_lines
       'won'
     end
-  end
-
-  def display_game_result(game_result)
-    case game_result
-    when 'lost'
-      show_secret_word
-      puts 'No more tries, you lost the game...'
-    when 'won'
-      puts 'Congratulations! You found the word and won the game!!'
-    end
-  end
-
-  def show_secret_word
-    secret_word.blank_lines = secret_word.letters
   end
 
   def play_again?
