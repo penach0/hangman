@@ -6,13 +6,15 @@ require 'yaml'
 # Contains logic of the gameplay
 class Game
   include Display
-  attr_reader :secret_word, :wrong_guesses
+  include UserInput
+  attr_reader :secret_word, :wrong_guesses, :all_guesses
 
   MAX_WRONG_TRIES = 8
 
-  def initialize(secret_word = nil, wrong_guesses = [])
+  def initialize(secret_word = nil, wrong_guesses = [], all_guesses = [])
     @secret_word = secret_word || SecretWord.new
     @wrong_guesses = wrong_guesses || []
+    @all_guesses = all_guesses || []
   end
 
   def self.load
@@ -22,14 +24,15 @@ class Game
 
     new(
       saved_game.secret_word,
-      saved_game.wrong_guesses
+      saved_game.wrong_guesses,
+      saved_game.all_guesses
     )
   end
 
   def play
     display_all
     while wrong_guesses.size < MAX_WRONG_TRIES
-      unless Guess.all_guesses.empty?
+      unless all_guesses.empty?
         if save_game?
           serialize
           return
@@ -43,9 +46,9 @@ class Game
   end
 
   def turn
-    guess = Guess.new.guess
+    guess = Guess.new(ask_guess(all_guesses)).guess
     secret_word.update_word_state(secret_word.check_guess(guess), guess)
-    add_wrong_guesses(guess)
+    add_guesses(guess)
   end
 
   def display_all
@@ -54,8 +57,9 @@ class Game
     display_wrong_guesses(wrong_guesses, MAX_WRONG_TRIES)
   end
 
-  def add_wrong_guesses(guess)
+  def add_guesses(guess)
     wrong_guesses << guess unless secret_word.letters.include?(guess)
+    all_guesses << guess
   end
 
   def game_result
@@ -79,7 +83,6 @@ class Game
   end
 
   def new_game
-    Guess.reset_guesses
     Game.new.play
   end
 
