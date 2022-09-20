@@ -70,32 +70,8 @@ class Game
     end
   end
 
-  def play_again?
-    puts 'Want to play again? (Y/N)'
-    answer = ''
-    loop do
-      answer = gets.chomp
-      break if %w[y n].include?(answer.downcase)
-
-      puts 'Not a valid option'
-    end
-    answer == 'y'
-  end
-
   def new_game
     Game.new.play
-  end
-
-  def save_game?
-    puts 'Do you want to save? (Y/N)'
-    answer = ''
-    loop do
-      answer = gets.chomp
-      break if %w[y n].include?(answer.downcase)
-
-      puts 'Not a valid option'
-    end
-    answer == 'y'
   end
 
   def serialize

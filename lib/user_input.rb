@@ -20,4 +20,25 @@ module UserInput
       true
     end
   end
+
+  def yes_or_no?
+    answer = ''
+    loop do
+      answer = gets.chomp
+      break if %w[y n].include?(answer.downcase)
+
+      puts 'Not a valid option'
+    end
+    true if answer == 'y'
+  end
+
+  def save_game?
+    puts 'Do you want to save? (Y/N)'
+    yes_or_no?
+  end
+
+  def play_again?
+    puts 'Want to play again? (Y/N)'
+    yes_or_no?
+  end
 end
