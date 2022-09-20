@@ -33,7 +33,7 @@ module UserInput
   end
 
   def save_game?(all_guesses)
-    unless all_guesses.empty?
+    unless all_guesses.empty? # Checks if it is the first turn
       puts 'Do you want to save? (Y/N)'
       yes_or_no?
     end
@@ -42,5 +42,17 @@ module UserInput
   def play_again?
     puts 'Want to play again? (Y/N)'
     yes_or_no?
+  end
+
+  def ask_save_name
+    save_name = ''
+    puts 'Enter a name for the save:'
+    loop do
+      save_name = gets.chomp
+      break unless save_name =~ /\W/
+
+      puts 'Not a valid name'
+    end
+    save_name
   end
 end
