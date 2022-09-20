@@ -32,9 +32,11 @@ module UserInput
     true if answer == 'y'
   end
 
-  def save_game?
-    puts 'Do you want to save? (Y/N)'
-    yes_or_no?
+  def save_game?(all_guesses)
+    unless all_guesses.empty?
+      puts 'Do you want to save? (Y/N)'
+      yes_or_no?
+    end
   end
 
   def play_again?

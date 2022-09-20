@@ -15,6 +15,7 @@ class Game
     @secret_word = secret_word || SecretWord.new
     @wrong_guesses = wrong_guesses || []
     @all_guesses = all_guesses || []
+    display_all
   end
 
   def self.load
@@ -30,17 +31,12 @@ class Game
   end
 
   def play
-    display_all
-    while wrong_guesses.size < MAX_WRONG_TRIES
-      unless all_guesses.empty?
-        if save_game?
-          serialize
-          return
-        end
-      end
+    loop do
       turn
       display_all
-      break if game_result == 'won'
+      break if game_result
+
+      return serialize if save_game?(all_guesses)
     end
     new_game if play_again?
   end
