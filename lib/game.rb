@@ -1,9 +1,11 @@
 require_relative 'secret_word'
 require_relative 'guess'
+require_relative 'display'
 require 'yaml'
 
 # Contains logic of the gameplay
 class Game
+  include Display
   attr_reader :secret_word, :wrong_guesses
 
   MAX_WRONG_TRIES = 8
@@ -48,17 +50,12 @@ class Game
 
   def display_all
     secret_word.display_word_state
-    display_wrong_guesses
+    display_wrong_guesses(wrong_guesses, MAX_WRONG_TRIES)
     display_game_result(game_result)
   end
 
   def add_wrong_guesses(guess)
     wrong_guesses << guess unless secret_word.letters.include?(guess)
-  end
-
-  def display_wrong_guesses
-    puts "Wrong Guesses: #{wrong_guesses.join(' ').upcase}"
-    puts "Number of tries left: #{MAX_WRONG_TRIES - wrong_guesses.size}"
   end
 
   def game_result
