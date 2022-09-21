@@ -1,10 +1,16 @@
+require_relative 'text_content'
+
 # Holds all methods related to displaying the game
 module Display
   include TextContent
 
   def display_wrong_guesses(wrong_guesses, max_tries)
-    puts "Wrong Guesses: #{wrong_guesses.join(' ').upcase}"
-    puts "Number of tries left: #{max_tries - wrong_guesses.size}"
+    tries_left = max_tries - wrong_guesses.size
+
+    fill_array = wrong_guesses.map { |letter| letter.upcase}
+                              .fill(' ', wrong_guesses.size...8)
+
+    puts wrong_guesses_box(fill_array, tries_left)
   end
 
   def display_game_result(game_result, secret_word)
