@@ -42,7 +42,7 @@ class Game
       display_all
       break delete_save_file(file_name) if game_result
 
-      return serialize if save_game?(all_guesses)
+      return serialize(file_name) if save_game?(all_guesses)
     end
     new_game if play_again?
   end
@@ -74,12 +74,5 @@ class Game
 
   def new_game
     Game.new.play
-  end
-
-  def serialize
-    save_name = file_name || ask_save_name
-    file = File.open("../saves/#{save_name}.yaml", 'w')
-    YAML.dump(self, file)
-    file.close
   end
 end

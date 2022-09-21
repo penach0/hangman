@@ -4,6 +4,13 @@ module Saves
     klass.extend(ClassMethods)
   end
 
+  def serialize(file_name)
+    save_name = file_name || ask_save_name
+    file = File.open("../saves/#{save_name}.yaml", 'w')
+    YAML.dump(self, file)
+    file.close
+  end
+
   def delete_save_file(file_name)
     File.delete("../saves/#{file_name}.yaml") unless file_name.nil?
   end
