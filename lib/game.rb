@@ -55,8 +55,8 @@ class Game
 
   def display_all
     display_game_result(game_result, secret_word)
-    display_word_state(secret_word.blank_lines)
-    display_wrong_guesses(wrong_guesses, MAX_WRONG_TRIES)
+    print_top_part(display_word_state(secret_word.blank_lines), wrong_guesses)
+    print_drawing(wrong_guesses)
   end
 
   def add_guesses(guess)
