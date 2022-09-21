@@ -7,7 +7,7 @@ require 'yaml'
 class Game
   include Display
   include UserInput
-  attr_reader :secret_word, :wrong_guesses, :all_guesses, :saved_games
+  attr_reader :secret_word, :wrong_guesses, :all_guesses
 
   MAX_WRONG_TRIES = 8
 
@@ -15,7 +15,6 @@ class Game
     @secret_word = secret_word || SecretWord.new
     @wrong_guesses = wrong_guesses || []
     @all_guesses = all_guesses || []
-    @saved_games = Dir.children('../saves').map { |file| file.split('.')[0] }
     display_all
   end
 
@@ -36,7 +35,6 @@ class Game
     loop do
       turn
       display_all
-      p saved_games
       break if game_result
 
       return serialize if save_game?(all_guesses)
@@ -79,4 +77,9 @@ class Game
     YAML.dump(self, file)
     file.close
   end
+
+  def saved_games
+    Dir.children('../saves').map { |file| file.split('.')[0] }
+  end
+
 end
