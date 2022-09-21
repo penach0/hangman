@@ -4,6 +4,9 @@ require_relative 'text_content'
 module Display
   include TextContent
 
+  WIDTH = 30
+  HEIGHT = 7
+
   def fill_array(array)
     array.map { |letter| letter.upcase}
          .fill(' ', array.size...8)
@@ -11,33 +14,49 @@ module Display
 
   # Joins blank lines with the wrong guesses box
   def print_top_part(blank_lines, wrong_guesses)
-    height = 7
-    width = 20
-
     i = 1
-    while i <= height
-      print blank_lines.center(width, ' ') if i == 4
-      print ' ' * width
+    while i <= HEIGHT
+      print blank_lines_box(blank_lines, i)
       puts wrong_guesses_box(fill_array(wrong_guesses), i)
       i += 1
     end
   end
 
-  def print_drawing(wrong_guesses)
-    puts DRAWINGS[wrong_guesses.size]
+  def center(string)
+    string.center(WIDTH, ' ')
+  end
+
+  def blank_lines_box(blank_lines, i)
+    border = '─' * (blank_lines.length + 2)
+    case i
+    when 3
+      "┌#{border}┐".center(WIDTH, ' ')
+    when 4
+      blank_lines.center(WIDTH, ' ')
+    when 5
+      "└#{border}┘".center(WIDTH, ' ')
+    else
+      ' ' * WIDTH
+    end
   end
 
   def wrong_guesses_box(letters, i)
     case i
-    when 1, 7
-      '************************'
+    when 1
+      '  ╔═════════════════════╗'
     when 3
-      "*   #{letters[0]}    #{letters[1]}    #{letters[2]}    #{letters[3]}   *"
+      "  ║   #{letters[0]}    #{letters[1]}    #{letters[2]}    #{letters[3]}  ║"
     when 5
-      "*   #{letters[4]}    #{letters[5]}    #{letters[6]}    #{letters[7]}   *"
+      "  ║   #{letters[4]}    #{letters[5]}    #{letters[6]}    #{letters[7]}  ║"
+    when 7
+      '  ╚═════════════════════╝'
     else
-      '*                      *'
+      '  ║                     ║'
     end
+  end
+
+  def print_drawing(wrong_guesses)
+    puts DRAWINGS[wrong_guesses.size]
   end
 
   def display_game_result(game_result, secret_word)
