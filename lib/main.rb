@@ -1,6 +1,8 @@
 require_relative 'game'
 
 def load_game?
+  return if Dir.empty?('../saves')
+
   puts 'Do you want to load a game? (Y/N)'
   answer = ''
   loop do
