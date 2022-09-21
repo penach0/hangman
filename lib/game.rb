@@ -1,12 +1,15 @@
 require_relative 'secret_word'
 require_relative 'guess'
 require_relative 'display'
+require_relative 'user_input'
+require_relative 'saves'
 require 'yaml'
 
 # Contains logic of the gameplay
 class Game
   include Display
   include UserInput
+  extend Saves
   attr_reader :secret_word, :wrong_guesses, :all_guesses
 
   MAX_WRONG_TRIES = 8
@@ -77,9 +80,4 @@ class Game
     YAML.dump(self, file)
     file.close
   end
-
-  def saved_games
-    Dir.children('../saves').map { |file| file.split('.')[0] }
-  end
-
 end
