@@ -23,7 +23,7 @@ class Game
   end
 
   def self.load
-    file_name = choose_saved_game(saved_games)
+    file_name = game_file(saved_games, pick_saved_game(saved_games))
     file = File.open("../saves/#{file_name}.yaml", 'r')
     saved_game = YAML.safe_load(file, permitted_classes: [Game, SecretWord])
     file.close
