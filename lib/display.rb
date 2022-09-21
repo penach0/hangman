@@ -11,6 +11,7 @@ module Display
                               .fill(' ', wrong_guesses.size...8)
 
     puts wrong_guesses_box(fill_array, tries_left)
+    puts DRAWINGS[wrong_guesses.size]
   end
 
   def display_game_result(game_result, secret_word)
