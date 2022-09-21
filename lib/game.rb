@@ -7,7 +7,7 @@ require 'yaml'
 class Game
   include Display
   include UserInput
-  attr_reader :secret_word, :wrong_guesses, :all_guesses
+  attr_reader :secret_word, :wrong_guesses, :all_guesses, :saved_games
 
   MAX_WRONG_TRIES = 8
 
@@ -15,11 +15,12 @@ class Game
     @secret_word = secret_word || SecretWord.new
     @wrong_guesses = wrong_guesses || []
     @all_guesses = all_guesses || []
+    @saved_games = Dir.children('../saves').map { |file| file.split('.')[0] }
     display_all
   end
 
   def self.load
-    saved_game = 'simoes'
+    saved_game = choose_saved_game(saved_games)
     file = File.open("../saves/#{saved_game}.yaml", 'r')
     saved_game = YAML.safe_load(file, permitted_classes: [Game, SecretWord])
     file.close
@@ -77,9 +78,5 @@ class Game
     file = File.open("../saves/#{save_name}.yaml", 'w')
     YAML.dump(self, file)
     file.close
-  end
-
-  def saved_games
-    Dir.children('../saves').map { |file| file.split('.')[0] }
   end
 end
