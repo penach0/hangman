@@ -9,7 +9,7 @@ require 'yaml'
 class Game
   include Display
   include UserInput
-  extend Saves
+  include Saves
   attr_reader :secret_word, :wrong_guesses, :all_guesses, :file_name
 
   MAX_WRONG_TRIES = 8
@@ -40,7 +40,7 @@ class Game
     loop do
       turn
       display_all
-      break if game_result
+      break delete_save_file(file_name) if game_result
 
       return serialize if save_game?(all_guesses)
     end

@@ -4,6 +4,10 @@ module Saves
     klass.extend(ClassMethods)
   end
 
+  def delete_save_file(file_name)
+    File.delete("../saves/#{file_name}.yaml") unless file_name.nil?
+  end
+
   # Save related class methods for Game
   module ClassMethods
     def saved_games
