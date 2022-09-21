@@ -1,5 +1,7 @@
 # Holds all methods related to displaying the game
 module Display
+  include TextContent
+
   def display_wrong_guesses(wrong_guesses, max_tries)
     puts "Wrong Guesses: #{wrong_guesses.join(' ').upcase}"
     puts "Number of tries left: #{max_tries - wrong_guesses.size}"
@@ -16,7 +18,6 @@ module Display
   end
 
   def display_word_state(blank_lines)
-    puts blank_lines.join(' ')
-    puts
+    wrap_blank_lines(blank_lines.join(' '))
   end
 end
