@@ -19,7 +19,8 @@ class Game
   end
 
   def self.load
-    file = File.open('../saves/test.yaml', 'r')
+    saved_game = 'simoes'
+    file = File.open("../saves/#{saved_game}.yaml", 'r')
     saved_game = YAML.safe_load(file, permitted_classes: [Game, SecretWord])
     file.close
 
@@ -34,6 +35,7 @@ class Game
     loop do
       turn
       display_all
+      p saved_games
       break if game_result
 
       return serialize if save_game?(all_guesses)
@@ -71,8 +73,13 @@ class Game
   end
 
   def serialize
-    file = File.open("../saves/#{ask_save_name}.yaml", 'w')
+    save_name = ask_save_name
+    file = File.open("../saves/#{save_name}.yaml", 'w')
     YAML.dump(self, file)
     file.close
+  end
+
+  def saved_games
+    Dir.children('../saves').map { |file| file.split('.')[0] }
   end
 end

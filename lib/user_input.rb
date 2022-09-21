@@ -49,7 +49,7 @@ module UserInput
     puts 'Enter a name for the save:'
     loop do
       save_name = gets.chomp
-      break unless save_name =~ /\W/
+      break if save_name.match?(/\A[\w-]*\z/)
 
       puts 'Not a valid name'
     end
