@@ -4,7 +4,7 @@ require_relative 'user_input'
 class Guess
   include UserInput
   attr_reader :guess
-  
+
   def initialize(guess)
     @guess = guess
   end
