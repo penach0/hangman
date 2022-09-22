@@ -25,7 +25,7 @@ TITLE = <<-'HEREDOC'.freeze
 
 
 
-Press any key to play
+Press Enter to play
 HEREDOC
 
 system('clear')
