@@ -33,7 +33,7 @@ print TITLE
 gets.chomp
 
 def load_game?
-  return if Dir.empty?('../saves')
+  return if Dir.empty?('saves')
 
   puts 'Do you want to load a game? (Y/N)'
   answer = ''
