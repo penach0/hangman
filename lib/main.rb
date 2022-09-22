@@ -33,7 +33,7 @@ print TITLE
 gets.chomp
 
 def load_game?
-  return if Dir.empty?('saves')
+  return if Dir.glob('*.yaml', base: 'saves').empty?
 
   puts 'Do you want to load a game? (Y/N)'
   answer = ''

@@ -17,6 +17,7 @@ Lessons learned:
 - Create a module that can both be included and extend a class, in other words the same 
 module can provide both instance and class methods to a class
 - Modules can include other modules
+- Commit a empty directory with .gitkeep
 
 To do:
 

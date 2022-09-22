@@ -20,7 +20,7 @@ module Saves
     include UserInput
 
     def saved_games
-      Dir.children('saves').map { |file| file.split('.')[0] }
+      Dir.glob('*.yaml', base: 'saves').map { |file| file.split('.')[0] }
     end
 
     def game_file(saved_games, choice)
