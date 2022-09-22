@@ -54,6 +54,7 @@ class Game
   end
 
   def display_all
+    system('clear')
     display_game_result(game_result, secret_word)
     print_top_part(display_word_state(secret_word.blank_lines), wrong_guesses)
     print_drawing(wrong_guesses)

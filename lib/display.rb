@@ -5,7 +5,7 @@ module Display
   include TextContent
 
   WIDTH = 30
-  HEIGHT = 7
+  HEIGHT = 8
 
   def fill_array(array)
     array.map { |letter| letter.upcase}
@@ -14,6 +14,8 @@ module Display
 
   # Joins blank lines with the wrong guesses box
   def print_top_part(blank_lines, wrong_guesses)
+    puts
+
     i = 1
     while i <= HEIGHT
       print blank_lines_box(blank_lines, i)
@@ -22,18 +24,16 @@ module Display
     end
   end
 
-  def center(string)
-    string.center(WIDTH, ' ')
-  end
-
   def blank_lines_box(blank_lines, i)
     border = '─' * (blank_lines.length + 2)
     case i
-    when 3
-      "┌#{border}┐".center(WIDTH, ' ')
+    when 1
+      'GUESS THE WORD'.center(WIDTH, ' ')
     when 4
-      blank_lines.center(WIDTH, ' ')
+      "┌#{border}┐".center(WIDTH, ' ')
     when 5
+      blank_lines.center(WIDTH, ' ')
+    when 6
       "└#{border}┘".center(WIDTH, ' ')
     else
       ' ' * WIDTH
@@ -43,12 +43,14 @@ module Display
   def wrong_guesses_box(letters, i)
     case i
     when 1
+      '       WRONG GUESSES     '
+    when 2
       '  ╔═════════════════════╗'
-    when 3
+    when 4
       "  ║   #{letters[0]}    #{letters[1]}    #{letters[2]}    #{letters[3]}  ║"
-    when 5
+    when 6
       "  ║   #{letters[4]}    #{letters[5]}    #{letters[6]}    #{letters[7]}  ║"
-    when 7
+    when 8
       '  ╚═════════════════════╝'
     else
       '  ║                     ║'

@@ -3,7 +3,7 @@ module UserInput
   def ask_guess(all_guesses)
     letter = ''
     loop do
-      puts 'Make a guess:'
+      print 'Make a guess: '
       letter = gets.chomp.strip
       next if already_picked?(letter, all_guesses)
 
@@ -34,19 +34,19 @@ module UserInput
 
   def save_game?(all_guesses)
     unless all_guesses.empty? # Checks if it is the first turn
-      puts 'Do you want to save? (Y/N)'
+      print 'Do you want to save? (Y/N) '
       yes_or_no?
     end
   end
 
   def play_again?
-    puts 'Want to play again? (Y/N)'
+    print 'Want to play again? (Y/N) '
     yes_or_no?
   end
 
   def ask_save_name
     save_name = ''
-    puts 'Enter a name for the save:'
+    print 'Enter a name for the save: '
     loop do
       save_name = gets.chomp
       break if save_name.match?(/\A[\w-]*\z/)
@@ -57,7 +57,7 @@ module UserInput
   end
 
   def pick_saved_game(saved_games)
-    puts 'Pick a saved game (enter the corresponding number):'
+    print 'Pick a saved game (enter the corresponding number): '
     saved_games.each.with_index(1) { |file, index| puts "#{index}. #{file}" }
 
     choice = ''
