@@ -1,5 +1,7 @@
 require_relative 'game'
 
+system('clear')
+
 def load_game?
   return if Dir.empty?('../saves')
 

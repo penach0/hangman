@@ -57,7 +57,7 @@ module UserInput
   end
 
   def pick_saved_game(saved_games)
-    print 'Pick a saved game (enter the corresponding number): '
+    puts 'Pick a saved game (enter the corresponding number): '
     saved_games.each.with_index(1) { |file, index| puts "#{index}. #{file}" }
 
     choice = ''
