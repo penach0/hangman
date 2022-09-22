@@ -1,6 +1,26 @@
 require_relative 'game'
 
+TITLE = <<-'HEREDOC'.freeze
+
+
+ _    _ 
+| |  | |
+| |__| |  __ _  _ __    __ _  _ __ ___    __ _  _ __
+|  __  | / _` || '_ \  / _` || '_ ` _ \  / _` || '_ \
+| |  | || (_| || | | || (_| || | | | | || (_| || | | |
+|_|  |_| \__,_||_| |_| \__, ||_| |_| |_| \__,_||_| |_|
+                        __/ |
+                       |___/
+
+
+
+Press any key to play
+
+HEREDOC
+
 system('clear')
+puts TITLE
+gets.chomp
 
 def load_game?
   return if Dir.empty?('../saves')
