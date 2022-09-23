@@ -3,12 +3,15 @@ Classic pen-and-paper hangman game implementation on the command line. Written i
 
 ## Instructions
 
-- You can run this game online on Replit:
-
-[![Run on Repl.it](https://replit.com/badge/github/penach0/hangman)](https://replit.com/new/github/penach0/hangman)
-- Pick a letter at each turn to try to guess the secret word. You get 8 tries.
+- You can run this game online on Replit: https://replit.com/@penach0/hangman?v=1
+- Pick a letter at each turn to try to guess the secret word.
+- Correct guesses will reveal the corresponding letter on the positions it occupies in
+the word
+- Wrong guesses will make you lose a life. You get 8 tries.
 - Games can be saved at any moment and saved games can be loaded at the beginning of
 the game.
+
+[![Run on Repl.it](https://replit.com/badge/github/penach0/hangman)](https://replit.com/new/github/penach0/hangman)
 
 ## Credits:
 
